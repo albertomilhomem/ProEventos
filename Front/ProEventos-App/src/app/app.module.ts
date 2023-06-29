@@ -20,10 +20,12 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContatosComponent } from './components/contatos/contatos.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
+import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
 
 import { EventoService } from './services/evento.service';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
     PerfilComponent,
     TituloComponent,
     TituloComponent,
+    EventoDetalheComponent,
+    EventoListaComponent,
   ],
   imports: [
     BrowserModule,
