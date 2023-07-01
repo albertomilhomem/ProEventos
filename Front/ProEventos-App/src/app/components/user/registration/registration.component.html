@@ -47,6 +47,7 @@
 					<label for="">Confirmar Senha:</label>
 					<input class="form-control" type="password" formControlName="confirmeSenha" placeholder="Confirme a Senha" [ngClass]="{'is-invalid': f.confirmeSenha.errors && f.confirmeSenha.touched}" />
 					<div *ngIf="f.confirmeSenha.errors?.required" class="invalid-feedback">Confirmação de senha é obrigatório.</div>
+					<div *ngIf="f.confirmeSenha.errors?.mustMatch" class="invalid-feedback">As senhas devem ser iguais.</div>
 				</div>
 			</div>
 			<div class="form-row p-1 mb-3">
