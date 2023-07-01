@@ -4,35 +4,44 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label>Tema</label>
-                    <input type="text" class="form-control" formControlName="tema" placeholder="Insira o Tema">
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': form.get('tema')?.errors && form.get('tema')?.touched}" formControlName="tema" placeholder="Insira o Tema">
+                    <div *ngIf="form.get('tema')?.hasError('required')" class="invalid-feedback">Tema é obrigatório</div>
+                    <div *ngIf="form.get('tema')?.hasError('minlength')" class="invalid-feedback">Tema deve ter no mínimo 4 caracteres.</div>
+                    <div *ngIf="form.get('tema')?.hasError('maxlength')" class="invalid-feedback">Tema deve ter no máximo 50 caracteres.</div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label>Local</label>
-                    <input type="text" class="form-control" formControlName="local" placeholder="">
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': form.get('local')?.errors && form.get('local')?.touched}" formControlName="local" placeholder="">
+                    <div class="invalid-feedback">Local é obrigatório.</div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Data e Hora</label>
-                    <input type="datetime" class="form-control" formControlName="dataEvento" placeholder="">
+                    <input type="datetime" class="form-control" [ngClass]="{'is-invalid': form.get('dataEvento')?.errors && form.get('dataEvento')?.touched}" formControlName="dataEvento" placeholder="">
+                    <div class="invalid-feedback">Data e hora é obrigatório.</div>
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-4">
                     <label>Qtd Pessoas</label>
-                    <input type="text" class="form-control is-invalid" formControlName="quantidadePessoas" placeholder="">
+                    <input type="text" class="form-control is-invalid" [ngClass]="{'is-invalid': form.get('quantidadePessoas')?.errors && form.get('quantidadePessoas')?.touched}" formControlName="quantidadePessoas" placeholder="">
+                    <div class="invalid-feedback">Quantidade de pessoas é obrigatório.</div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>Telefone</label>
-                    <input type="text" class="form-control" formControlName="telefone" placeholder="(000) 90000-0000">
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': form.get('telefone')?.errors && form.get('telefone')?.touched}" formControlName="telefone" placeholder="(000) 90000-0000">
+                    <div class="invalid-feedback">Telefone é obrigatório.</div>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Email</label>
-                    <input type="text" class="form-control" formControlName="email" placeholder="e-mail">
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': form.get('email')?.errors && form.get('email')?.touched}" formControlName="email" placeholder="e-mail">
+                    <div class="invalid-feedback">E-mail é obrigatório.</div>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Imagem</label>
-                    <input type="text" class="form-control" formControlName="imagemURL" placeholder="imagem">
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': form.get('imagemURL')?.errors && form.get('imagemURL')?.touched}" formControlName="imagemURL" placeholder="imagem">
+                    <div class="invalid-feedback">Imagem é obrigatório.</div>
                 </div>
             </div>
         </div>
