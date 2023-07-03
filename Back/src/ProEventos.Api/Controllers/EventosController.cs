@@ -8,7 +8,7 @@ using ProEventos.Persistence.Context;
 using ProEventos.Domain;
 using ProEventos.Application.Contracts;
 using Microsoft.AspNetCore.Http;
-using ProEventos.Api.DTO;
+using ProEventos.Application.DTO;
 
 namespace ProEventos.Api.Controllers
 {
@@ -31,24 +31,7 @@ namespace ProEventos.Api.Controllers
 
                 if (eventos == null) return NotFound("Nenhum Evento encontrado.");
 
-                var eventoRetorno = new List<EventoDTO>();
-
-                foreach (var evento in eventos)
-                {
-                    eventoRetorno.Add(new EventoDTO()
-                    {
-                        Id = evento.Id,
-                        Local = evento.Local,
-                        DataEvento = evento.DataEvento.ToString(),
-                        Tema = evento.Tema,
-                        QuantidadePessoas = evento.QuantidadePessoas,
-                        ImagemURL = evento.ImagemURL,
-                        Telefone = evento.Telefone,
-                        Email = evento.Email,
-                    });
-                }
-
-                return Ok(eventoRetorno);
+                return Ok(eventos);
             }
             catch (Exception ex)
             {
@@ -93,7 +76,7 @@ namespace ProEventos.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Evento model)
+        public async Task<IActionResult> Post(EventoDTO model)
         {
             try
             {
@@ -111,7 +94,7 @@ namespace ProEventos.Api.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Evento model)
+        public async Task<IActionResult> Put(int id, EventoDTO model)
         {
             try
             {
