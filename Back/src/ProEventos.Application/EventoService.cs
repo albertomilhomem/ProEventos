@@ -49,12 +49,11 @@ namespace ProEventos.Application
             try
             {
                 var evento = await _eventoPersist.GetEventoByIdAsync(eventoId, false);
-
                 if (evento == null) return null;
 
                 model.Id = evento.Id;
-
-                _geralPersist.Update<Evento>(model);
+                _mapper.Map(model, evento);
+                _geralPersist.Update<Evento>(evento);
 
                 if (await _geralPersist.SaveChangesAsync())
                 {
@@ -77,7 +76,7 @@ namespace ProEventos.Application
                 var evento = await _eventoPersist.GetEventoByIdAsync(eventoId, false);
                 if (evento == null) throw new Exception("Evento não encontrado.");
 
-                _geralPersist.Delete<EventoDTO>(evento);
+                _geralPersist.Delete<Evento>(evento);
                 return await _geralPersist.SaveChangesAsync();
             }
             catch (Exception ex)

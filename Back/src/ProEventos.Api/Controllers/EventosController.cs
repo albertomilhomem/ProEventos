@@ -29,7 +29,7 @@ namespace ProEventos.Api.Controllers
             {
                 var eventos = await _eventoService.GetAllEventosAsync(true);
 
-                if (eventos == null) return NotFound("Nenhum Evento encontrado.");
+                if (eventos == null) return NoContent();
 
                 return Ok(eventos);
             }
@@ -45,7 +45,7 @@ namespace ProEventos.Api.Controllers
             {
                 var evento = await _eventoService.GetEventoByIdAsync(id, true);
 
-                if (evento == null) return NotFound("Nenhum Evento encontrado.");
+                if (evento == null) return NoContent();
 
                 return Ok(evento);
             }
@@ -62,7 +62,7 @@ namespace ProEventos.Api.Controllers
             {
                 var evento = await _eventoService.GetAllEventosByTemaAsync(tema, true);
 
-                if (evento == null) return NotFound("Evento por tema não encontrado.");
+                if (evento == null) return NoContent();
                 {
 
                 }
@@ -98,6 +98,7 @@ namespace ProEventos.Api.Controllers
         {
             try
             {
+
                 var evento = await _eventoService.UpdateEvento(id, model);
 
                 if (evento == null) return BadRequest("Erro ao tentar atualizar o evento.");
@@ -116,11 +117,14 @@ namespace ProEventos.Api.Controllers
         {
             try
             {
-                return await _eventoService.DeleteEvento(id) ? Ok("Deletado") : BadRequest("Evento não deletado");
+                var evento = await _eventoService.GetEventoByIdAsync(id, true);
+                if (evento == null) return NoContent();
+
+                return await _eventoService.DeleteEvento(id) ? Ok("Deletado") : throw new Exception("Ocorreu um problema não específico ao tentar deletar Evento.");
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar deletar o evento. Erro: {ex.Message}");
             }
 
         }
