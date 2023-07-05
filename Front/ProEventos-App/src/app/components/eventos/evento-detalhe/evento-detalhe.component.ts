@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Evento } from '@app/models/Evento';
+import { EventoService } from '@app/services/evento.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -9,6 +14,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 })
 export class EventoDetalheComponent implements OnInit {
 
+  evento = {} as Evento;
   form!: FormGroup;
 
   get f(): any {
@@ -18,18 +24,50 @@ export class EventoDetalheComponent implements OnInit {
   get bsConfig(): any {
     return {
       adaptivePosition: true,
+      dateInputFormat: 'DD/MM/YYYY hh:mm',
+      containerClass: 'theme-default',
       showWeekNumbers: false,
-      containerClass: "theme-default",
-      dateInputFormat: "DD/MM/YYYY hh:mm a",
     }
   }
 
-  constructor(private fb: FormBuilder, private localeService: BsLocaleService) {
+  constructor(
+    private fb: FormBuilder,
+    private localeService: BsLocaleService,
+    private router: ActivatedRoute,
+    private eventoService: EventoService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService) {
     this.localeService.use("pt-br");
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.validation();
+
+    setTimeout(() => {
+      this.carregarEvento();
+    }, 2000)
+  }
+
+  public carregarEvento(): void {
+    const eventoIdParam = this.router.snapshot.paramMap.get('id');
+
+    if (eventoIdParam != null) {
+      this.eventoService.getEventosById(+eventoIdParam).subscribe(
+        {
+          next: (evento: Evento) => {
+            this.evento = { ...evento }
+            this.form.patchValue(this.evento);
+          },
+          error: (error: any) => {
+            console.error(error);
+            this.spinner.hide();
+            this.toastr.error('Erro ao carregar o Evento', 'Erro!')
+          },
+          complete: () => { this.spinner.hide(); },
+        }
+      )
+    }
   }
 
   public validation(): void {

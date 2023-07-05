@@ -43,13 +43,15 @@ export class EventoListaComponent implements OnInit {
     );
   }
 
+  public eventoId = 0;
+
   constructor(
     private eventoService: EventoService,
     private modalService: BsModalService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private router: Router,
-  ) {}
+  ) { }
 
   public ngOnInit(): void {
     this.spinner.show();
@@ -78,7 +80,9 @@ export class EventoListaComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  openModal(template: TemplateRef<any>) {
+  openModal(event: any, template: TemplateRef<any>, eventoId: number) {
+    event.stopPropagation();
+    this.eventoId = eventoId;
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
   confirm(): void {
@@ -89,7 +93,7 @@ export class EventoListaComponent implements OnInit {
     this.modalRef?.hide();
   }
 
-  detalheEvento(id: number): void{
+  detalheEvento(id: number): void {
     this.router.navigate([`eventos/detalhe/${id}`]);
   }
 
