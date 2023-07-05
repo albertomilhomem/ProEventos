@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -16,6 +17,7 @@ export class EventoDetalheComponent implements OnInit {
 
   evento = {} as Evento;
   form!: FormGroup;
+  estadoSalvar: string = 'post';
 
   get f(): any {
     return this.form.controls;
@@ -52,7 +54,9 @@ export class EventoDetalheComponent implements OnInit {
   public carregarEvento(): void {
     const eventoIdParam = this.router.snapshot.paramMap.get('id');
 
+
     if (eventoIdParam != null) {
+      this.estadoSalvar = 'put';
       this.eventoService.getEventosById(+eventoIdParam).subscribe(
         {
           next: (evento: Evento) => {
@@ -67,6 +71,9 @@ export class EventoDetalheComponent implements OnInit {
           complete: () => { this.spinner.hide(); },
         }
       )
+    }
+    else {
+      this.spinner.hide();
     }
   }
 
@@ -88,6 +95,26 @@ export class EventoDetalheComponent implements OnInit {
 
   public cssValidator(campo: FormControl): any {
     return { 'is-invalid': campo.errors && campo.touched }
+  }
+
+  public salvarAlteracao(): void {
+    this.spinner.show();
+
+    if (this.form.valid) {
+      this.evento = this.estadoSalvar === 'post' ? this.evento = { ... this.form.value } : { id: this.evento.id, ... this.form.value };
+
+      this.eventoService[this.estadoSalvar](this.evento).subscribe(
+        () => { this.toastr.success('Evento salvo com Sucesso!', 'Sucesso') },
+        (error: any) => {
+          console.error(error);
+          this.spinner.hide();
+          this.toastr.error('Erro ao salvar o evento', 'Erro');
+        },
+        () => { this.spinner.hide(); }
+      );
+
+    }
+
   }
 
 }

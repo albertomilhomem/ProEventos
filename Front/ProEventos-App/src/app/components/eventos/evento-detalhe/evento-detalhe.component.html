@@ -21,7 +21,7 @@
                         placeholder="">
                     <div *ngIf="f.local.errors?.required" class="invalid-feedback">Local é obrigatório.</div>
                 </div>
-                <p>{{ evento.dataEvento | date: 'dd/MM/yyyy HH:mm' }}</p>
+                <!-- <p>{{ evento.dataEvento | date: 'dd/MM/yyyy HH:mm' }}</p> -->
                 <div class="form-group col-md-4">
                     <label>Data e Hora</label>
                     <input type="datetime" class="form-control" [ngClass]="cssValidator(f.dataEvento)"
@@ -68,7 +68,7 @@
                 <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">
                     Cancelar Alteração
                 </button>
-                <button class="btn btn-success" [disabled]="!form.valid">
+                <button class="btn btn-success" [disabled]="!form.valid" (click)="salvarAlteracao()">
                     <span class="mr-1"></span>
                     Salvar Evento
                 </button>

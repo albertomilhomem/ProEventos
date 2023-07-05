@@ -57,11 +57,11 @@ export class EventoListaComponent implements OnInit {
     this.spinner.show();
 
     setTimeout(() => {
-      this.getEventos();
+      this.carregarEventos();
     }, 2000);
   }
 
-  public getEventos() {
+  public carregarEventos() {
     this.eventoService.getEventos().subscribe({
       next: (eventos: Evento[]) => {
         this.eventos = eventos;
@@ -87,7 +87,23 @@ export class EventoListaComponent implements OnInit {
   }
   confirm(): void {
     this.modalRef?.hide();
-    this.toastr.success('Evento deletado com sucesso.', 'Deletado!');
+
+    setTimeout(() => {
+      this.eventoService.deleteEvento(this.eventoId).subscribe(
+        (result: any) => {
+          if (result.message == 'Deletado') {
+            this.toastr.success('Evento deletado com sucesso.', 'Deletado!');
+            this.carregarEventos();
+          }
+        },
+        (error: any) => {
+          console.log(error);
+          this.toastr.error(`Erro ao tentar deletar o Evento: ${this.eventoId}`, 'Erro!');
+        },
+      ).add(() => this.spinner.hide());
+    }, 2000);
+
+
   }
   decline(): void {
     this.modalRef?.hide();
