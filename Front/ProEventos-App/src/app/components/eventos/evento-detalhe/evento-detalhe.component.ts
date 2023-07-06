@@ -1,8 +1,9 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Evento } from '@app/models/Evento';
+import { Lote } from '@app/models/Lote';
 import { EventoService } from '@app/services/evento.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -30,6 +31,14 @@ export class EventoDetalheComponent implements OnInit {
       containerClass: 'theme-default',
       showWeekNumbers: false,
     }
+  }
+
+  get modoEditar(): boolean {
+    return this.estadoSalvar == 'put';
+  }
+
+  get lotes(): FormArray {
+    return this.form.get('lotes') as FormArray;
   }
 
   constructor(
@@ -86,15 +95,36 @@ export class EventoDetalheComponent implements OnInit {
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       imagemURL: ['', Validators.required],
+      lotes: this.fb.array([])
     });
   }
+
+  adicionarLote(): void {
+    (this.lotes).push(this.criarLote({ id: 0 } as Lote)
+    );
+  }
+
+  criarLote(lote: Lote): FormGroup {
+    return this.fb.group(
+      {
+        id: [lote.id],
+        nome: [lote.nome, Validators.required],
+        preco: [lote.preco, Validators.required],
+        quantidade: [lote.quantidade, Validators.required],
+        dataInicio: [lote.dataInicio, Validators.required],
+        dataFim: [lote.dataFim, Validators.required],
+      }
+    )
+  }
+
+
 
   public resetForm(): void {
     this.form.reset();
   }
 
-  public cssValidator(campo: FormControl): any {
-    return { 'is-invalid': campo.errors && campo.touched }
+  public cssValidator(campo: FormControl | AbstractControl): any {
+    return { 'is-invalid': campo!.errors && campo!.touched }
   }
 
   public salvarAlteracao(): void {
