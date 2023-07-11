@@ -22,7 +22,7 @@ export class LoteService {
     return this.http.put<Lote[]>(`${this.baseURL}/${eventoId}`, lotes).pipe(take(1));
   }
 
-  public deleteLote(loteId: number, eventoId: number): Observable<any> {
+  public deleteLote(eventoId: number, loteId: number): Observable<any> {
     return this.http.delete(`${this.baseURL}/${eventoId}/${loteId}`).pipe(take(1));
   }
 }

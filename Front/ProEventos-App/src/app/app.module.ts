@@ -10,6 +10,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
@@ -62,6 +63,7 @@ defineLocale('pt-br', ptBrLocale);
     BrowserAnimationsModule,
     FormsModule,
     NgxSpinnerModule,
+    NgxCurrencyModule,
     ReactiveFormsModule,
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
