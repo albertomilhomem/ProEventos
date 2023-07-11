@@ -50,7 +50,7 @@ namespace ProEventos.Application
 
                 foreach (var model in models)
                 {
-                    if (model.EventoId == 0)
+                    if (model.Id == 0)
                     {
                         await AddLote(eventoId, model);
 

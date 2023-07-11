@@ -34,16 +34,16 @@ namespace ProEventos.Api.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, LoteDTO[] models)
+        [HttpPut("{eventoId}")]
+        public async Task<IActionResult> Put(int eventoId, LoteDTO[] models)
         {
             try
             {
-                var lote = await _loteService.SaveLote(id, models);
+                var lotes = await _loteService.SaveLote(eventoId, models);
 
-                if (lote == null) return BadRequest("Erro ao tentar atualizar o lote.");
+                if (lotes == null) return NoContent();
 
-                return Ok(lote);
+                return Ok(lotes);
             }
             catch (Exception ex)
             {
