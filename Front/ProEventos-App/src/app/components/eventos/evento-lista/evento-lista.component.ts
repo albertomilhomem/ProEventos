@@ -7,6 +7,7 @@ import { EventoService } from '@app/services/evento.service';
 
 import { Evento } from '@app/models/Evento';
 import { Router } from '@angular/router';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-evento-lista',
@@ -111,6 +112,10 @@ export class EventoListaComponent implements OnInit {
 
   detalheEvento(id: number): void {
     this.router.navigate([`eventos/detalhe/${id}`]);
+  }
+
+  public retornaImagem(imagemURL: string, eventoId: number): string {
+    return (imagemURL != null && imagemURL != '') ? `${environment.apiURL}Resources/Images/${imagemURL}` : 'http://lorempixel.com.br/50/50/' + eventoId;
   }
 
 }

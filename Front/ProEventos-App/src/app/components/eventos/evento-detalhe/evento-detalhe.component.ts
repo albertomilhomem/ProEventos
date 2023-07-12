@@ -6,10 +6,12 @@ import { Evento } from '@app/models/Evento';
 import { Lote } from '@app/models/Lote';
 import { EventoService } from '@app/services/evento.service';
 import { LoteService } from '@app/services/lote.service';
+import { environment } from '@environments/environment';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -24,6 +26,8 @@ export class EventoDetalheComponent implements OnInit {
   estadoSalvar: string = 'post';
   modalRef?: BsModalRef;
   loteAtual = { id: 0, nome: '', indice: 0 }
+  imagemURL = 'assets/upload.png';
+  file?: File;
 
   get f(): any {
     return this.form.controls;
@@ -32,7 +36,7 @@ export class EventoDetalheComponent implements OnInit {
   get bsConfig(): any {
     return {
       adaptivePosition: true,
-      dateInputFormat: 'DD/MM/YYYY hh:mm',
+      dateInputFormat: 'DD/MM/YYYY HH:mm',
       containerClass: 'theme-default',
       showWeekNumbers: false,
     }
@@ -95,6 +99,9 @@ export class EventoDetalheComponent implements OnInit {
           next: (evento: Evento) => {
             this.evento = { ...evento }
             this.form.patchValue(this.evento);
+            if (this.evento.imagemURL != null && this.evento.imagemURL != '') {
+              this.imagemURL = environment.apiURL + 'Resources/Images/' + this.evento.imagemURL;
+            }
             this.evento.lotes.forEach(lote => { this.lotes.push(this.criarLote(lote)); });
           },
           error: (error: any) => {
@@ -119,7 +126,6 @@ export class EventoDetalheComponent implements OnInit {
       quantidadePessoas: ['', [Validators.required, Validators.max(120000)]],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      imagemURL: ['', Validators.required],
       lotes: this.fb.array([])
     });
   }
@@ -242,6 +248,26 @@ export class EventoDetalheComponent implements OnInit {
   }
   declineDeleteLote(): void {
     this.modalRef?.hide();
+  }
+
+  onFileChange(ev: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => this.imagemURL = event.target.result;
+
+    this.file = ev.target.files;
+
+    reader.readAsDataURL(this.file![0]);
+
+    this.uploadImagem();
+  }
+
+  uploadImagem(): void {
+    this.spinner.show();
+    this.eventoService.postUpload(this.eventoId, this.file!).subscribe(
+      () => { this.carregarEvento(); this.toastr.success("Imagem atualizada com sucesso!", "Sucesso!") },
+      (error: any) => { this.toastr.error("Erro ao tentar atualizada a imagem!", "Erro!"); console.log(error) }
+    ).add(() => this.spinner.hide());
   }
 
 }
