@@ -40,5 +40,7 @@ namespace ProEventos.Application.DTO
         public IEnumerable<LoteDTO> Lotes { get; set; }
         public IEnumerable<RedeSocialDTO> RedesSociais { get; set; }
         public IEnumerable<PalestranteDTO> Palestrantes { get; set; }
+        public int UserID { get; set; }
+        public UserDTO UserDTO { get; set; }
     }
 }
