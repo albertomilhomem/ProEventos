@@ -74,6 +74,7 @@ namespace ProEventos.Api.Controllers
 
         }
         [HttpPost("Login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(UserLoginDTO userLoginDTO)
         {
             try
