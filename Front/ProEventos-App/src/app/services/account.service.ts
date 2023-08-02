@@ -25,6 +25,15 @@ export class AccountService {
     }));
   }
 
+  public register(model: any): Observable<void> {
+    return this.http.post<User>(this.baseURL + 'register', model).pipe(take(1), map((response: User) => {
+      const user = response;
+      if (user) {
+        this.setCurrentUser(user);
+      }
+    }));
+  }
+
   logout(): void {
     localStorage.removeItem('user');
     this.currentUserSource.next(null as any);
