@@ -8,12 +8,11 @@ import { environment } from '@environments/environment';
 @Injectable()
 export class EventoService {
   baseURL = environment.apiURL + 'api/eventos';
-  tokenHeader = new HttpHeaders({'Authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwidW5pcXVlX25hbWUiOiJzdHJpbmciLCJuYmYiOjE2OTA5MzA3MzksImV4cCI6MTY5MTAxNzEzOSwiaWF0IjoxNjkwOTMwNzM5fQ.ofncoh_CavHGQB3ih808EFAxrwhxQrr0aCDcNL90lT0EQgvGjSk0-y-3yMFHq9Ax3t7_U36oVUUQV8WfmqPaPA' });
 
   constructor(private http: HttpClient) { }
 
   public getEventos(): Observable<Evento[]> {
-    return this.http.get<Evento[]>(this.baseURL, {headers: this.tokenHeader}).pipe(take(1));
+    return this.http.get<Evento[]>(this.baseURL).pipe(take(1));
   }
 
   public getEventosByTema(tema: string): Observable<Evento[]> {

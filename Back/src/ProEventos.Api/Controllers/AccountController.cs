@@ -52,7 +52,7 @@ namespace ProEventos.Api.Controllers
         {
             try
             {
-                if (await _accountService.UserExists(userDTO.Username))
+                if (await _accountService.UserExists(userDTO.UserName))
                 {
                     return BadRequest("Usuário já existente.");
 
@@ -62,7 +62,14 @@ namespace ProEventos.Api.Controllers
 
                 if (user != null)
                 {
-                    return Ok(user);
+                    return Ok(
+                    new
+                    {
+                        userName = user.UserName,
+                        primeiroNome = user.PrimeiroNome,
+                        token = _tokenService.CreateToken(user).Result
+                    }
+                    );
                 }
 
                 return BadRequest("Erro ao cadastrar usuário, tente novamente mais tarde.");
@@ -109,6 +116,8 @@ namespace ProEventos.Api.Controllers
         {
             try
             {
+                if (userUpdateDTO.UserName != User.GetUserName()) return Unauthorized("Usuário inválido.");
+
                 var user = await _accountService.GetUserByUserNameAsync(User.GetUserName());
                 if (user == null) return Unauthorized("Usuário Inválido");
 
@@ -116,7 +125,12 @@ namespace ProEventos.Api.Controllers
 
                 if (userReturn == null) return NoContent();
 
-                return Ok(userReturn);
+                return Ok(new
+                    {
+                        userName = userReturn.UserName,
+                        primeiroNome = userReturn.PrimeiroNome,
+                        token = _tokenService.CreateToken(userReturn).Result
+                    });
             }
             catch (System.Exception ex)
             {
