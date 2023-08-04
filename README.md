@@ -14,7 +14,7 @@ Seção 11: Eventos e Lotes (Completo)
 Seção 12: Upload de Imagem (Completo)
 Seção 13: Asp.NET Core Identity - Auth - JWT (Completo)
 Seção 14: Angular + Asp.NET Core Identity + JWT (Completo)
-Seção 15: Paginação e Filtro Inteligente (Completo)
 
+Seção 15: Paginação e Filtro Inteligente
 Seção 16: Palestrantes e Redes Sociais - Backend
 Seção 17: Palestrantes e Redes Sociais - Frontend
