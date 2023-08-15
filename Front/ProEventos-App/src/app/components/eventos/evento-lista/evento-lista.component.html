@@ -3,7 +3,8 @@
         <div class="p-2">
             <div class="input-group">
                 <div class="input-group-text">Filtro:</div>
-                <input type="text" class="form-control col-md-" placeholder="Buscar" [(ngModel)]="filtroLista">
+                <input type="text" class="form-control col-md-" placeholder="Buscar"
+                    (input)="filtrarEventos($event.target)">
                 <div class="ms-5 col-md-4">
                     <a routerLink="/eventos/detalhe" class="btn btn-outline-primary col-md-4 float-end"><i
                             class="fa fa-plus-circle my-1"></i><b class="d-none d-sm-block">Novo</b></a>
@@ -36,7 +37,7 @@
             </tr>
         </thead>
         <tbody *ngIf="eventos && eventos.length">
-            <tr *ngFor="let evento of eventosFiltrados" (click)="detalheEvento(evento.id)" style="cursor: pointer;">
+            <tr *ngFor="let evento of eventos" (click)="detalheEvento(evento.id)" style="cursor: pointer;">
                 <td class="d-none d-md-table-cell col-1"><img class="mx-auto" [collapse]="isCollapsed"
                         [isAnimated]="true" [src]="retornaImagem(evento.imagemURL, evento.id)" [style.width.px]="50"
                         [style.margin.px]="2"></td>
@@ -64,6 +65,14 @@
             </tr>
         </tfoot>
     </table>
+
+    <div class="d-flex justify-content-center">
+        <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+            [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" pageBtnClass="btn"
+            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+        </pagination>
+
+    </div>
 </div>
 
 <ng-template #template>

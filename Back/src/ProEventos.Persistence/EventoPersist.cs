@@ -29,7 +29,7 @@ namespace ProEventos.Persistence
                     .ThenInclude(pe => pe.Palestrante);
             }
 
-            query = query.AsNoTracking().Where(e => e.Tema.ToLower().Contains(pageParams.Term.ToLower()) && e.UserId == userID).OrderBy(e => e.Id);
+            query = query.AsNoTracking().Where(e => (e.Tema.ToLower().Contains(pageParams.Term.ToLower()) || e.Local.ToLower().Contains(pageParams.Term.ToLower())) && e.UserId == userID).OrderBy(e => e.Id);
 
             return await PageList<Evento>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }

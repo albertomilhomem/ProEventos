@@ -8,6 +8,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxCurrencyModule } from 'ngx-currency';
@@ -75,6 +76,7 @@ defineLocale('pt-br', ptBrLocale);
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',

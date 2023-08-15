@@ -42,6 +42,8 @@ namespace ProEventos.Api.Controllers
 
                 if (eventos == null) return NoContent();
 
+                Response.AddPagination(eventos.CurrentPage, eventos.PageSize, eventos.TotalCount, eventos.TotalPages);
+
                 return Ok(eventos);
             }
             catch (Exception ex)
