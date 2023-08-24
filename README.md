@@ -30,6 +30,6 @@
 
 <s>Seção 15: Paginação e Filtro Inteligente</s> (Completo)
 
-Seção 16: Palestrantes e Redes Sociais - Backend
+<s>Seção 16: Palestrantes e Redes Sociais - Backend</s> (Completo)
 
 Seção 17: Palestrantes e Redes Sociais - Frontend

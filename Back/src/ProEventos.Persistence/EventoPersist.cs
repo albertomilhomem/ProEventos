@@ -31,7 +31,7 @@ namespace ProEventos.Persistence
 
             query = query.AsNoTracking().Where(e => (e.Tema.ToLower().Contains(pageParams.Term.ToLower()) || e.Local.ToLower().Contains(pageParams.Term.ToLower())) && e.UserId == userID).OrderBy(e => e.Id);
 
-            return await PageList<Evento>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
+            return await PageList<Evento>.CreateAsync(query, pageParams.PageNumber, pageParams.pageSize);
         }
         public async Task<Evento> GetEventoByIdAsync(int userID, int eventoId, bool includePalestrantes = false)
         {
