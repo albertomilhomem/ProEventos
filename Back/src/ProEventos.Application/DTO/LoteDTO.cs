@@ -14,7 +14,7 @@ namespace ProEventos.Application.DTO
         public string DataFim { get; set; }
         public int Quantidade { get; set; }
         public int EventoId { get; set; }
-        public EventoDTO Evento { get; set; }
+        public EventoDTO EventoDTO { get; set; }
 
     }
 }

@@ -36,11 +36,11 @@ namespace ProEventos.Application.DTO
         [Display(Name = "e-mail")]
         [EmailAddress(ErrorMessage = "É necessário ser um {e-mail} válido.")]
         public string Email { get; set; }
-
+        public int UserID { get; set; }
+        public UserDTO UserDTO { get; set; }
         public IEnumerable<LoteDTO> Lotes { get; set; }
         public IEnumerable<RedeSocialDTO> RedesSociais { get; set; }
         public IEnumerable<PalestranteDTO> Palestrantes { get; set; }
-        public int UserID { get; set; }
-        public UserDTO UserDTO { get; set; }
+
     }
 }
