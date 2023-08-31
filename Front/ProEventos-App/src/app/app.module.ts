@@ -12,6 +12,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
@@ -40,6 +41,10 @@ import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { HomeComponent } from './components/home/home.component';
+import { PerfilDetalheComponent } from './components/user/perfil/perfil-detalhe/perfil-detalhe.component';
+import { PalestranteListaComponent } from './components/palestrantes/palestrante-lista/palestrante-lista.component';
+import { PalestranteDetalheComponent } from './components/user/perfil/palestrante-detalhe/palestrante-detalhe.component';
+import { RedesSociaisComponent } from './components/redes-sociais/redes-sociais.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -61,6 +66,10 @@ defineLocale('pt-br', ptBrLocale);
     LoginComponent,
     RegistrationComponent,
     HomeComponent,
+    PerfilDetalheComponent,
+    PalestranteListaComponent,
+    PalestranteDetalheComponent,
+    RedesSociaisComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +86,7 @@ defineLocale('pt-br', ptBrLocale);
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
+    TabsModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',

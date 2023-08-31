@@ -126,7 +126,7 @@ export class EventoListaComponent implements OnInit {
   }
 
   public retornaImagem(imagemURL: string, eventoId: number): string {
-    return (imagemURL != null && imagemURL != '') ? `${environment.apiURL}Resources/Images/${imagemURL}` : 'http://lorempixel.com.br/50/50/' + eventoId;
+    return (imagemURL != null && imagemURL != '') ? `${environment.apiURL}Resources/Images/Eventos/${imagemURL}` : 'http://lorempixel.com.br/50/50/' + eventoId;
   }
 
 }
