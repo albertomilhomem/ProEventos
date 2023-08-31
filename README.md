@@ -32,4 +32,4 @@
 
 <s>Seção 16: Palestrantes e Redes Sociais - Backend</s> (Completo)
 
-Seção 17: Palestrantes e Redes Sociais - Frontend
+<s>Seção 17: Palestrantes e Redes Sociais - Frontend</s> (Completo)
