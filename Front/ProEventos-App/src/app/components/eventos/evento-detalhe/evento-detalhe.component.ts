@@ -100,7 +100,7 @@ export class EventoDetalheComponent implements OnInit {
             this.evento = { ...evento }
             this.form.patchValue(this.evento);
             if (this.evento.imagemURL != null && this.evento.imagemURL != '') {
-              this.imagemURL = environment.apiURL + 'Resources/Images/' + this.evento.imagemURL;
+              this.imagemURL = environment.apiURL + 'Resources/Images/Eventos/' + this.evento.imagemURL;
             }
             this.evento.lotes.forEach(lote => { this.lotes.push(this.criarLote(lote)); });
           },
@@ -252,13 +252,9 @@ export class EventoDetalheComponent implements OnInit {
 
   onFileChange(ev: any): void {
     const reader = new FileReader();
-
     reader.onload = (event: any) => this.imagemURL = event.target.result;
-
     this.file = ev.target.files;
-
     reader.readAsDataURL(this.file![0]);
-
     this.uploadImagem();
   }
 

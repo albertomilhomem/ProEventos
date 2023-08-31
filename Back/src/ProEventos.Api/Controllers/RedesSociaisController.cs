@@ -81,14 +81,14 @@ namespace ProEventos.Api.Controllers
             }
         }
         [HttpPut("palestrante")]
-        public async Task<IActionResult> SaveByPalestrante(int palestranteId, RedeSocialDTO[] models)
+        public async Task<IActionResult> SaveByPalestrante(RedeSocialDTO[] models)
         {
             try
             {
                 var palestrante = await _palestranteService.GetPalestranteByUserIdAsync(User.GetUserID());
                 if (palestrante == null) return Unauthorized();
 
-                var RedesSociais = await _redeSocialService.SaveByPalestrante(palestranteId, models);
+                var RedesSociais = await _redeSocialService.SaveByPalestrante(palestrante.Id, models);
                 if (RedesSociais == null) return NoContent();
 
                 return Ok(RedesSociais);

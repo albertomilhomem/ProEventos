@@ -143,8 +143,8 @@ namespace ProEventos.Api.Controllers
 
         }
 
-        [HttpPost("upload-image/{accountId}")]
-        public async Task<IActionResult> UploadImage(int accountId)
+        [HttpPost("upload-image")]
+        public async Task<IActionResult> UploadImage()
         {
             try
             {
